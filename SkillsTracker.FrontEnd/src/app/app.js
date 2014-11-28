@@ -24,11 +24,12 @@
 				if (toState.data && toState.data.private && toState.data.private === true) {
 					
 					if (accountService.data.authenticated === false) {
-						$state.go('login');
+						// Todo: implement tryLogin when there is a token in localstorage
+						// Todo: uncomment when token set
+						//event.preventDefault();
+						//$state.go('login');
 					}
-					
 				}
-				
 			});
 		}
 	]);

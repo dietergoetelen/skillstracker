@@ -28,6 +28,11 @@ ul {
   padding-bottom: 20px;
   margin: 0;
 }
+.page-title span {
+  margin-left: 10px;
+  position: relative;
+  top: -5px;
+}
 ::-moz-selection,
 ::selection {
   /* Code for Firefox */
@@ -220,4 +225,8 @@ blockquote .small:before {
 }
 .top-50 {
   margin-top: 50px;
+}
+.badge {
+  border-radius: 0px;
+  padding: 5px;
 }

@@ -1,0 +1,20 @@
+<div ng-controller="AccountController as vm">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-title">
+				<h2 ng-bind="vm.userData.user.fullName"></h2>
+				<span class="badge alert-success" ng-bind="vm.userData.user.title"></span>
+			</div>	
+		</div>
+	</div>
+	
+	<div class="row">
+		
+		<div class="col-md-6" ng-repeat="skill in vm.skills | orderBy:'-rating'">
+			<skill-rating skill="skill"></skill-rating>
+		</div>
+		
+	</div>
+	
+</div>

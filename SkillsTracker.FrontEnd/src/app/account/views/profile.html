@@ -9,12 +9,53 @@
 		</div>
 	</div>
 	
+	
+	<!-- skills -->
 	<div class="row">
-		
 		<div class="col-md-6" ng-repeat="skill in vm.skills | orderBy:'-rating'">
-			<skill-rating skill="skill" on-update="vm.updateSkill(skill, oldSkill)"></skill-rating>
+			<skill-rating skill="skill" on-delete="vm.deleteSkill(skill)" on-update="vm.updateSkill(skill, oldSkill)"></skill-rating>
 		</div>
-		
+	</div>
+
+	<!-- projects -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="rd-post">
+				<h2 class="rd-post-title">Chronorace</h2>
+				<h4 class="rd-post-lead">JavaScript front end developer</h4>
+				
+				<p>
+					Nieuwe web applicatie voor Chronorace.
+				</p>
+				<p>
+					Chronorace is een web applicatie die tijdsregistraties van grote sportevenementen waarneemt. Resultaten van sportevenementen worden na afloop weergegeven op de website. 
+
+				</p>
+				
+				<hr/>
+				
+				<ul>
+					<li>AngularJS Development
+						<ul>
+							<li>Form generator directive gebaseerd op formly</li>
+							<li>Een scroll spy directive gemaakt om snel/eenvoudig te kunnen navigeren doorheen een pagina</li>
+							<li>Architectuur opgezet per module/feature</li>
+							<li>Introductie UI Router i.p.v. Angular Router</li>
+						</ul>
+					</li>
+				</ul>
+				
+				<hr/>
+				
+				<div class="rd-post-tags">
+					<a ui-sref="search"><span class="badge alert-success">AngularJS</span></a>
+					<a ui-sref="search"><span class="badge alert-success">TypeScript</span></a>
+					<a ui-sref="search"><span class="badge alert-success">GIT</span></a>
+					<a ui-sref="search"><span class="badge alert-success">Bower</span></a>
+					<a ui-sref="search"><span class="badge alert-success">Grunt</span></a>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 </div>

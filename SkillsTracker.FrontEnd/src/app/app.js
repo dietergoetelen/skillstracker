@@ -5,6 +5,7 @@
 	var app = angular.module('app', [
 		'app.common',
 		'app.account',
+		'app.search',
 		'ui.router'
 	]);
 	

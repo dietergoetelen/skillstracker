@@ -7,7 +7,8 @@
 			restrict: 'E',
 			scope: {
 				skill: '=',
-				onUpdate: '&'
+				onUpdate: '&',
+				onDelete: '&'
 			},
 			controller: ['$scope', function ($scope) {
 				function setSkillHolder() {
@@ -31,12 +32,14 @@
 					setSkillHolder();
 				};
 				
+				$scope.delete = function () {
+					$scope.onDelete({'skill': $scope.skill});
+				};
+				
 				setSkillHolder();
 			}],
 			templateUrl: 'app/common/directives/templates/skillRatingTemplate.html'
 		};
-		
 	});
-	
 	
 }(angular.module('app.common')));

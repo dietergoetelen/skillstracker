@@ -1,12 +1,15 @@
-<div>
-	<p class="lead">
-		<span ng-repeat="count in [1, 2, 3, 4, 5]" ng-style="{color: skillHolder.rating >= count ? 'orange' : 'black' }" 
-			  ng-class="{'glyphicon glyphicon-star': skillHolder.rating >= count, 'glyphicon glyphicon-star-empty': skillHolder.rating < count}"
-			  ng-mouseover="over($index)"
-			  ng-mouseleave="leave($index)"
-			  ng-click="set($index)"
-			  style="font-size: 16px; margin-right: 10px;"></span>
-		
-		{{ skillHolder.name }}
-	</p>
+<div ng-mouseover="mouseoverContainer = true" ng-mouseleave="mouseoverContainer = false">
+	<div style="positon: relative;">
+		<p class="lead">
+			<span ng-repeat="count in [1, 2, 3, 4, 5]" ng-style="{color: skillHolder.rating >= count ? 'orange' : 'black' }" 
+				  ng-class="{'glyphicon glyphicon-star': skillHolder.rating >= count, 'glyphicon glyphicon-star-empty': skillHolder.rating < count}"
+				  ng-mouseover="over($index)"
+				  ng-mouseleave="leave($index)"
+				  ng-click="set($index)"
+				  style="font-size: 16px; margin-right: 10px;"></span>
+
+			{{ skillHolder.name }}
+		</p>
+		<span ng-if="mouseoverContainer" ng-click="delete()" style="cursor: pointer; position: absolute; right: 8px; top: 8px;" class="glyphicon glyphicon-trash"></span>
+	</div>
 </div>

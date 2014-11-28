@@ -135,6 +135,9 @@ blockquote .small:before {
   font-size: 14px;
   color: #cccccc;
 }
+.rd-post-tags {
+  margin-top: 20px;
+}
 .list-group:first-child {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;

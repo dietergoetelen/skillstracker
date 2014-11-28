@@ -54,9 +54,20 @@
 					intro: '<p>Introduction</p>',
 					contribution: '<ul><li>AngularJS <ul><li>...</li><li>...</li></ul></li></ul>',
 					tags: ['AngularJS', 'JavaScript', 'GIT', 'Bower', 'Grunt']
+				},
+				{
+					title: 'acADDemICTs course',
+					lead: 'Docent',
+					intro: '<p>Introduction</p>',
+					contribution: '<ul><li>AngularJS <ul><li>...</li><li>...</li></ul></li></ul>',
+					tags: ['AngularJS', 'NodeJS', 'JavaScript']
 				}
 			];
 		}
+		
+		ProfileController.prototype.setFilter = function (tag) {
+			this.filterPredicate = tag;
+		};
 		  
 		ProfileController.prototype.updateSkill = function (skill, oldSkill) {
 			console.log('Todo: updating database for skill: ', skill, 'oldSkill: ', oldSkill); 

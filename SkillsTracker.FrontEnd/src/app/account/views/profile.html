@@ -18,12 +18,13 @@
 	</div>
 
 	<!-- projects -->
-	<project ng-repeat="project in vm.projects" 
+	<project ng-repeat="project in vm.projects | projectfilter:vm.filterPredicate" 
 			 title="{{ project.title }}" 
 			 lead="{{ project.lead }}" 
 			 intro="{{ project.intro }}"
 			 contribution="{{ project.contribution }}"
-			 tags="project.tags">
+			 tags="project.tags"
+			 on-set-filter="vm.setFilter(tag)">
 	</project>
 	
 </div>

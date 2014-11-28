@@ -11,7 +11,8 @@
 				lead: '@',
 				tags: '=',
 				intro: '@',
-				contribution: '@'
+				contribution: '@',
+				onSetFilter: '&'
 			},
 			controller: ['$sce','$scope', function ($sce, $scope) {
 				

@@ -11,7 +11,7 @@
 			<div ng-bind-html="trustAsHtml(contribution)"></div>
 
 			<div class="rd-post-tags">
-				<a ng-repeat="tag in tags" href=""><span class="badge alert-success">{{ tag }}</span> </a>
+				<a ng-repeat="tag in tags" ng-click="onSetFilter({ 'tag' : tag})" href=""><span class="badge alert-success">{{ tag }}</span> </a>
 			</div>
 		</div>
 	</div>

@@ -34,19 +34,13 @@
 			</div>
 		</nav>
 		
-		
+		<div ng-if="vm.spinner.loading === true" class="progress">
+		  <div class="progress-animation"></div>
+		</div>
 		
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div ng-if="vm.spinner.loading === true">
-						<div class="row">
-							<div class="col-md-4"></div>
-							<div class="col-md-4">
-								<img src="images/loading.gif" alt="loading gif"/>
-							</div>	
-						</div>
-					</div>
 					<div ui-view></div>
 				</div>
 			</div>

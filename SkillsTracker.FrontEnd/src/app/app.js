@@ -19,12 +19,12 @@
 	]);
 	
 	app.value('Spinner', {
-		loading: true	
+		loading: false	
 	});
 	
 	app.run(
 		['$rootScope', 'AccountService', '$state', 'Spinner', function ($rootScope, accountService, $state, Spinner) {
-			$rootScope.$on('$stateChangeStart', function (event, toState) {
+			$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 				if (toState.resolve) {
 					Spinner.loading = true;
 				}

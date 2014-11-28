@@ -44,3 +44,34 @@ p, ul {
 blockquote footer:before, blockquote small:before, blockquote .small:before {
 	content: '';
 }
+
+@-webkit-keyframes progress {
+  0% {
+    width: 20%;
+    left: -20%;
+  }
+  50% {
+    width: 100%;
+    left: 0%
+  }
+  100% {
+     width:100%;
+    left: 100%;
+  }
+}
+
+.progress {
+	position: absolute;
+	top: 70px;
+  height: 5px;
+  width: 100%;
+  overflow: hidden;
+  background-color: darken(@community-blue, 15%);
+  
+  &-animation {
+    height: 5px;
+    background-color: lighten(@community-blue, 15%);
+    position: relative;
+    -webkit-animation: progress 2s infinite;
+  }
+}

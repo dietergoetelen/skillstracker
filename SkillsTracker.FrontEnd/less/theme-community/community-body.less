@@ -1,0 +1,40 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+	padding-top: 100px;
+	background-color: #fcfcfc;
+	font-family: 'Roboto';
+  	margin-bottom: @footer-height + 40px;
+}
+
+p, ul {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 28px;
+}
+
+.page-title {
+	padding: 0;
+	margin: 0 0 20px 0;
+	border-bottom: 1px dotted #ccc;
+	
+	h1, h2 {
+		font-weight: 300;
+		border-bottom: 2px solid @community-blue;
+		display: inline-block;
+		padding-bottom: 20px;
+		margin: 0;
+	}
+}
+
+::-moz-selection, ::selection { /* Code for Firefox */
+    color: white;
+    background: @community-blue;
+}
+
+blockquote footer:before, blockquote small:before, blockquote .small:before {
+	content: '';
+}

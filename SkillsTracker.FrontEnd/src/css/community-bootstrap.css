@@ -1,0 +1,223 @@
+@import "http://fonts.googleapis.com/css?family=Roboto:400,300";
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  padding-top: 100px;
+  background-color: #fcfcfc;
+  font-family: 'Roboto';
+  margin-bottom: 240px;
+}
+p,
+ul {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 28px;
+}
+.page-title {
+  padding: 0;
+  margin: 0 0 20px 0;
+  border-bottom: 1px dotted #ccc;
+}
+.page-title h1,
+.page-title h2 {
+  font-weight: 300;
+  border-bottom: 2px solid #2e92cf;
+  display: inline-block;
+  padding-bottom: 20px;
+  margin: 0;
+}
+::-moz-selection,
+::selection {
+  /* Code for Firefox */
+  color: white;
+  background: #2e92cf;
+}
+blockquote footer:before,
+blockquote small:before,
+blockquote .small:before {
+  content: '';
+}
+.jumbotron {
+  background-color: white;
+  border: 1px solid #cccccc;
+}
+.jumbotron h1 {
+  font-weight: 300;
+}
+.container .jumbotron {
+  border-radius: 0px;
+}
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover {
+  background-color: #2e92cf;
+}
+.navbar {
+  min-height: 70px;
+}
+.navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-top: 20px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.navbar-toggle .icon-bar {
+  background-color: white;
+}
+.navbar-brand {
+  height: 70px;
+  line-height: 40px;
+  color: white;
+}
+.navbar-brand:hover {
+  color: #cfcfcf;
+}
+.navbar-flatten {
+  background-color: white;
+  border: 1px solid #cccccc;
+}
+.navbar-rd {
+  background-color: #2e92cf;
+}
+.navbar-nav > li > a {
+  padding: 25px;
+  color: white;
+}
+.navbar-nav > li > a:hover {
+  background: none;
+  color: #cfcfcf;
+}
+.btn {
+  border: 0px;
+  border-radius: 0px;
+}
+.btn-primary,
+.btn-default,
+.btn-success,
+.btn-info,
+.btn-danger,
+.btn-warning {
+  background-image: none;
+  box-shadow: none;
+}
+.btn-sm,
+.btn-lg {
+  border-radius: 0px;
+}
+.rd-post {
+  background-color: #f7f7f7;
+  border-top: 2px solid #cccccc;
+  padding: 0 20px 20px;
+  margin: 20px 0;
+}
+.rd-post h2 {
+  font-weight: 300;
+}
+.rd-post-title {
+  margin-bottom: 10px;
+}
+.rd-post-lead {
+  margin-top: 0px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #cccccc;
+}
+.list-group:first-child {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.list-group-item {
+  border: 1px solid #cccccc;
+}
+.list-group-item-heading {
+  padding: 10px 0;
+}
+.list-group-item-event {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.list-group-item:first-child,
+.list-group-item:last-child {
+  border-radius: 0px;
+}
+.list-group-item dl dt {
+  margin: 5px 0;
+}
+.panel-default {
+  border-radius: 0px;
+}
+.panel-footer {
+  background-color: white;
+}
+.footer {
+  height: 202px;
+  margin-top: 50px;
+  background-color: #f7f7f7;
+  position: absolute;
+  border-top: 2px solid #cccccc;
+  bottom: 0;
+  width: 100%;
+}
+.footer:before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100%;
+  opacity: .10;
+  height: 200px;
+  background: url('twitter.png') no-repeat 40px 40px;
+}
+.footer blockquote {
+  position: relative;
+  top: 40px;
+  border-left: none;
+}
+.footer blockquote p {
+  text-align: center;
+}
+.footer blockquote footer {
+  text-align: center;
+}
+.footer .col-md-1 > p > a {
+  position: relative;
+  top: 50px;
+}
+.footer .slide-nav-btn {
+  font-size: 30px;
+  opacity: .2;
+  transition: all .7s;
+}
+.footer .slide-nav-btn:hover {
+  opacity: 1;
+}
+.team-pic {
+  margin-top: 25px;
+}
+.team-subtitle {
+  margin-top: 0px;
+  color: #cccccc;
+}
+.top-10 {
+  margin-top: 10px;
+}
+.top-20 {
+  margin-top: 20px;
+}
+.top-30 {
+  margin-top: 30px;
+}
+.top-40 {
+  margin-top: 40px;
+}
+.top-50 {
+  margin-top: 50px;
+}

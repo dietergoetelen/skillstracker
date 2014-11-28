@@ -2,3 +2,5 @@
 /*/obj
 /packages
 /SkillsTracker.v12.suo
+/*/node_modules
+/SkillsTracker.FrontEnd/build

@@ -1,0 +1,28 @@
+.list-group {
+	&:first-child {
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+	}
+	
+	&-item {
+		border: 1px solid @border-color;
+
+		&-heading {
+			padding: 10px 0;
+		}
+		
+		&-event {
+			border-bottom: 1px solid @border-color;
+			padding-bottom: 15px;
+			margin-bottom: 20px;
+		}
+		
+		&:first-child, &:last-child {
+			border-radius: 0px;
+		}
+	
+		dl dt {
+			margin: 5px 0;
+		}
+	}
+}

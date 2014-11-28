@@ -7,6 +7,12 @@
 			this.formData = {};
 		}
 		
+		LoginController.prototype.login = function () {
+			
+			
+			
+		};
+		
 		return LoginController;
 		
 	}());

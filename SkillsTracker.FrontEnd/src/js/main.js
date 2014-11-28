@@ -53,8 +53,78 @@
 						private: true
 					},
 					templateUrl: 'app/account/views/account.html'
-				});
+				}); 
 		}
 	]);
 	
 }());
+(function (app) {
+	'use strict';
+	
+	var LoginController = (function () {
+		
+		function LoginController(AccountService, $state) {
+			this.formData = {};
+			this.accountService = AccountService;
+			this.$state = $state;
+		}
+		
+		LoginController.prototype.login = function () {
+			var vm = this;
+			
+			vm.accountService.login(vm.formData, function (err, user) {
+				
+				if (!err) {
+					vm.$state.go('account');
+				}
+				
+			});
+			
+			
+		};
+		
+		LoginController.$inject = ['AccountService', '$state'];
+		
+		return LoginController;
+		
+	}());
+	
+	app.controller('LoginController', LoginController);
+	
+}(angular.module('app.account')));
+(function (app) {
+	'use strict';
+	
+	var AccountService = (function () {
+		
+		function AccountService($http) {
+			this._$http = $http;
+			
+			this.data = {
+				user: {},
+				authenticated: false
+			};
+		}
+		
+		AccountService.prototype.login = function (user, cb) {
+			
+			var vm = this;
+			
+			// Todo: do $http call
+			vm.data.user = user;
+			vm.data.authenticated = true;
+			
+			cb(null, user);
+			
+		};
+		
+		
+		AccountService.$inject = ['$http'];
+		
+		return AccountService;
+		
+	}());
+	
+	app.service('AccountService', AccountService);
+	
+}(angular.module('app.account'))); 

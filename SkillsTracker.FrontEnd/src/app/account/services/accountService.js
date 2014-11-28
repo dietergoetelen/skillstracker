@@ -33,4 +33,4 @@
 	
 	app.service('AccountService', AccountService);
 	
-}(angular.module('app.account'));
+}(angular.module('app.account'))); 

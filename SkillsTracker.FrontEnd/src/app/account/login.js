@@ -23,7 +23,7 @@
 						private: true
 					},
 					templateUrl: 'app/account/views/account.html'
-				});
+				}); 
 		}
 	]);
 	

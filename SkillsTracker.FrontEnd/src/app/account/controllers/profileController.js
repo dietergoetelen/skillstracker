@@ -40,11 +40,11 @@
 				}
 			];
 		}
-		
+		 
 		ProfileController.prototype.updateSkill = function (skill, oldSkill) {
 			console.log('updating database for skill: ', skill, 'oldSkill: ', oldSkill); 
 		};
-		
+		  
 		return ProfileController;
 		
 	}());

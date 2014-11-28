@@ -12,6 +12,7 @@ namespace SkillsTracker
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AutoFacConfig.Configure();
         }
     }
 }

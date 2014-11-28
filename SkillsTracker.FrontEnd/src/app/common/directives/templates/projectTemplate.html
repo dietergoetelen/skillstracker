@@ -1,0 +1,18 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="rd-post">
+			<h2 class="rd-post-title">{{ title }}</h2>
+			<h4 class="rd-post-lead">{{ lead }}</h4>
+
+			<div ng-bind-html="trustAsHtml(intro)"></div>
+			
+			<hr/>
+			
+			<div ng-bind-html="trustAsHtml(contribution)"></div>
+
+			<div class="rd-post-tags">
+				<a ng-repeat="tag in tags" href=""><span class="badge alert-success">{{ tag }}</span> </a>
+			</div>
+		</div>
+	</div>
+</div>

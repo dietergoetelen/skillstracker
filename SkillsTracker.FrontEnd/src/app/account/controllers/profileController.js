@@ -45,6 +45,17 @@
 					rating: 3
 				}
 			];
+			
+			// Todo: should come from a service
+			this.projects = [
+				{
+					title: 'Chronorace',
+					lead: 'Front end JavaScript developer',
+					intro: '<p>Introduction</p>',
+					contribution: '<ul><li>AngularJS <ul><li>...</li><li>...</li></ul></li></ul>',
+					tags: ['AngularJS', 'JavaScript', 'GIT', 'Bower', 'Grunt']
+				}
+			];
 		}
 		  
 		ProfileController.prototype.updateSkill = function (skill, oldSkill) {

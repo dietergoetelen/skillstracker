@@ -107,9 +107,26 @@
 	
 	var RegisterController = (function () {
 		
-		function RegisterController() {
-			
+		function RegisterController(AccountService, $state) {
+			this.formData = {};
+			this.accountService = AccountService;
+			this.$state = $state;
 		}
+		
+		RegisterController.prototype.register = function () {
+			var vm = this;
+			
+			vm.accountService.register(function (err, user) {
+				
+				if (!err) {
+					vm.$state.go('account');
+				}
+				
+			});
+			
+		};
+		
+		RegisterController.$inject = ['AccountService', '$state'];
 		
 		return RegisterController;
 		
@@ -144,6 +161,15 @@
 			
 		};
 		
+		AccountService.prototype.register = function (user, cb) {
+			var vm = this;
+			
+			// Todo: do $http call
+			vm.data.user = user;
+			vm.data.authenticated = true;
+			
+			cb(null, user);
+		};
 		
 		AccountService.$inject = ['$http'];
 		

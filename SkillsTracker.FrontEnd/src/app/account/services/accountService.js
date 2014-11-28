@@ -24,6 +24,15 @@
 			
 		};
 		
+		AccountService.prototype.register = function (user, cb) {
+			var vm = this;
+			
+			// Todo: do $http call
+			vm.data.user = user;
+			vm.data.authenticated = true;
+			
+			cb(null, user);
+		};
 		
 		AccountService.$inject = ['$http'];
 		

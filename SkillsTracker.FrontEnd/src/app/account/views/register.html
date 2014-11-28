@@ -1,3 +1,80 @@
 <div ng-controller="RegisterController as vm">
-	
+	<form name="registerForm">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="page-title">
+					<h2>Register</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4" ng-class="{'has-error': registerForm.firstName.$invalid}">
+				<div class="form-group">
+					<label for="firstName">First name</label>
+					<input type="text" required name="firstName" id="firstName" class="form-control" ng-model="vm.formData.firstName"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4" ng-class="{'has-error': registerForm.lastName.$invalid}">
+				<div class="form-group">
+					<label for="lastName">Last name</label>
+					<input type="text" required name="lastName" id="lastName" class="form-control" ng-model="vm.formData.lastName"/>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-4" ng-class="{'has-error': registerForm.employeeCode.$invalid}">
+				<div class="form-group">
+					<label for="employeeCode">Employee code</label>
+					<input type="text" required name="employeeCode" id="employeeCode" class="form-control" ng-model="vm.formData.employeeCode"/>
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group" ng-class="{'has-error': registerForm.email.$invalid}">
+					<label for="email">Email</label>
+					<input type="email" required name="email" id="email" class="form-control" ng-model="vm.formData.email"/>
+				</div>
+			</div>
+
+			<div class="col-md-4" ng-class="{'has-error': registerForm.emailValid.$invalid}" ng-if="registerForm.email.$valid">
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" required name="emailValid" class="form-control" ng-model="vm.formData.emailValid"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4" ng-class="{'has-error': registerForm.password.$invalid}">
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" required name="password" id="password" class="form-control" ng-model="vm.formData.password"/>
+				</div>
+			</div>
+
+			<div class="col-md-4" ng-class="{'has-error': registerForm.passwordValid.$invalid}" ng-if="vm.formData.password.length > 0" >
+				<div class="form-group">
+					<label for="password">Repeat password</label>
+					<input type="password" id="password" required name="passwordValid" class="form-control" ng-model="vm.formData.passwordValid"/>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				
+				<button class="btn btn-primary" ng-disabled="registerForm.$invalid">Register</button>
+				<button class="btn btn-info" ui-sref="login">Already have an account?</button>
+				
+			</div>
+		</div>
+	</form>
 </div>

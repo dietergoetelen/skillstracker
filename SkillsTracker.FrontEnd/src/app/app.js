@@ -18,9 +18,24 @@
 		}
 	]);
 	
+	app.value('Spinner', {
+		loading: true	
+	});
+	
 	app.run(
-		['$rootScope', 'AccountService', '$state', function ($rootScope, accountService, $state) {
+		['$rootScope', 'AccountService', '$state', 'Spinner', function ($rootScope, accountService, $state, Spinner) {
+			$rootScope.$on('$stateChangeStart', function (event, toState) {
+				if (toState.resolve) {
+					Spinner.loading = true;
+				}
+			});
+			
 			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+				// Check if state has resolve
+				if (toState.resolve) {
+					Spinner.loading = false;
+				}
+				
 				
 				if (toState.data && toState.data.private && toState.data.private === true) {
 					

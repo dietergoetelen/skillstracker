@@ -3,12 +3,13 @@
 	
 	var MainController = (function () {
 		
-		function MainController(AccountService) {
+		function MainController(AccountService, Spinner) {
 			this.accountService = AccountService;
 			this.userData = this.accountService.data;
+			this.spinner = Spinner;
 		}
 		
-		MainController.$inject = ['AccountService'];
+		MainController.$inject = ['AccountService', 'Spinner'];
 		
 		return MainController;
 		

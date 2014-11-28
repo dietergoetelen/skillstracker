@@ -3,10 +3,9 @@
 	
 	var ProfileController = (function () {
 
-		function ProfileController(AccountService, ProfileService) {
+		function ProfileController(AccountService, skills, projects) {
 			
 			this.accountService = AccountService;
-			this.profileService = ProfileService;
 			
 			// Todo: should come from AccountService
 			this.userData = {
@@ -16,29 +15,10 @@
 				}
 			};
 			
-			this.getSkills();
-			this.getProjects();
+			this.skills = skills;
+			this.projects = projects;
+			
 		}
-		
-		ProfileController.prototype.getSkills = function () {
-			var vm = this;
-			
-			vm.profileService.getSkills(vm.userData, function (err, skills) {
-				if (!err) {
-					vm.skills = skills;
-				}
-			});
-		};
-		
-		ProfileController.prototype.getProjects = function () {
-			var vm = this;
-			
-			vm.profileService.getProjects(vm.userData, function (err, projects) {
-				if (!err) {
-					vm.projects = projects;
-				}
-			});
-		};
 		
 		ProfileController.prototype.setFilter = function (tag) {
 			this.filterPredicate = tag;
@@ -62,7 +42,7 @@
 			this.skills = skills;
 		};
 		
-		ProfileController.$inject = ['AccountService', 'ProfileService'];
+		ProfileController.$inject = ['AccountService', 'skills', 'projects'];
 		
 		return ProfileController;
 		

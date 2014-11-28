@@ -22,6 +22,20 @@
 					data: {
 						private: true
 					},
+					controller: 'ProfileController',
+					controllerAs: 'vm',
+					resolve: {
+						skills: ['ProfileService', 'AccountService', function (profileService, accountService) {
+							
+							return profileService.getSkills(accountService.userData);
+							
+						}],
+						projects: ['ProfileService', 'AccountService', function (profileService, accountService) {
+							
+							return profileService.getProjects(accountService.userData);
+							
+						}]
+					},
 					templateUrl: 'app/account/views/profile.html'
 				}); 
 		}

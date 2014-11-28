@@ -3,6 +3,7 @@
 	
 	
 	var app = angular.module('app', [
+		'app.common',
 		'app.account',
 		'ui.router'
 	]);
@@ -57,6 +58,11 @@
 		}
 	]);
 	
+}());
+(function () {
+	'use strict';
+	
+	angular.module('app.common', []);
 }());
 (function (app) {
 	'use strict';
@@ -128,3 +134,22 @@
 	app.service('AccountService', AccountService);
 	
 }(angular.module('app.account'))); 
+(function (app) {
+	'use strict';
+	
+	var MainController = (function () {
+		
+		function MainController(AccountService) {
+			this.accountService = AccountService;
+			this.userData = this.accountService.data;
+		}
+		
+		MainController.$inject = ['AccountService'];
+		
+		return MainController;
+		
+	}());
+	
+	app.controller('MainController', MainController);
+	
+}(angular.module('app.common')));

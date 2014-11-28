@@ -3,6 +3,7 @@
 	
 	
 	var app = angular.module('app', [
+		'app.common',
 		'app.account',
 		'ui.router'
 	]);

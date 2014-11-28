@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="css/community-bootstrap.css"/>
     </head>
     
-    <body>
+    <body ng-controller="MainController as vm">
 		<!-- Fixed navbar -->
 		<nav class="navbar navbar-rd navbar-fixed-top" role="navigation">
 			<div class="container">
@@ -22,7 +22,12 @@
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li></li>
+						<li ng-if="vm.userData.authenticated"><a ui-sref="account">Account</a></li>
+						<li ng-if="vm.userData.authenticated"><a ui-sref="search">Search</a></li>
+					</ul>
+					
+					 <ul class="nav navbar-nav navbar-right">
+        				<li ng-if="vm.userData.authenticated"><a ui-sref="account">Welkom, {{ vm.userData.user.username }}</a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->

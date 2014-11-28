@@ -3,9 +3,12 @@
 	
 	var MainController = (function () {
 		
-		function MainController() {
-			
+		function MainController(AccountService) {
+			this.accountService = AccountService;
+			this.userData = this.accountService.data;
 		}
+		
+		MainController.$inject = ['AccountService'];
 		
 		return MainController;
 		

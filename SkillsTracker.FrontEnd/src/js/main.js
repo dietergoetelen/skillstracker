@@ -18,10 +18,14 @@
 	]);
 	
 	app.run(
-		['$rootScope', function ($rootScope) {
+		['$rootScope', 'AccountService', '$state', function ($rootScope, accountService, $state) {
 			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 				
 				if (toState.data && toState.data.private && toState.data.private === true) {
+					
+					if (accountService.data.authenticated === false) {
+						$state.go('login');
+					}
 					
 				}
 				

@@ -126,6 +126,24 @@
 			
 		};
 		
+		RegisterController.prototype.validateEmail = function (value) {
+			
+			return value.indexOf('@realdolmen.com') >= 0;
+			
+		};
+		
+		RegisterController.prototype.validateEmailMatch = function (value) {
+			var vm = this;
+			return vm.formData.email === value;
+		};
+		
+		RegisterController.prototype.validatePasswordMatch = function (value) {
+			var vm = this;
+			console.log(value, vm.formData.password, vm.formData.password == value);
+			
+			return vm.formData.password == value;
+		};
+		
 		RegisterController.$inject = ['AccountService', '$state'];
 		
 		return RegisterController;
@@ -201,5 +219,38 @@
 	}());
 	
 	app.controller('MainController', MainController);
+	
+}(angular.module('app.common')));
+(function (app) {
+	'use strict';
+	
+	app.directive('customValidator', function () {
+		
+		return {
+			restrict: 'A',
+			require: '^ngModel',
+			scope: {
+				validates: '&'	
+			},
+			link: function(scope, element, attributes, ngModel) {
+				
+				ngModel.$parsers.unshift(function (value) {
+					if (scope.validates({'value': value}) == true) {
+						console.log(attributes.customValidator, '<-- true'); 
+						
+						ngModel.$setValidity(attributes.customValidator, true);
+					 } else {
+						 console.log(attributes.customValidator, '<-- false');
+						 
+						 ngModel.$setValidity(attributes.customValidator, false);
+					 }
+					
+					return value;
+				});
+				
+			}
+		};
+		
+	});
 	
 }(angular.module('app.common')));

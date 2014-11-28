@@ -22,6 +22,24 @@
 			
 		};
 		
+		RegisterController.prototype.validateEmail = function (value) {
+			
+			return value.indexOf('@realdolmen.com') >= 0;
+			
+		};
+		
+		RegisterController.prototype.validateEmailMatch = function (value) {
+			var vm = this;
+			return vm.formData.email === value;
+		};
+		
+		RegisterController.prototype.validatePasswordMatch = function (value) {
+			var vm = this;
+			console.log(value, vm.formData.password, vm.formData.password == value);
+			
+			return vm.formData.password == value;
+		};
+		
 		RegisterController.$inject = ['AccountService', '$state'];
 		
 		return RegisterController;

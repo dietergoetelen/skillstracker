@@ -15,7 +15,7 @@
 			vm.accountService.register(vm.formData, function (err, user) {
 				
 				if (!err) {
-					vm.$state.go('account');
+					vm.$state.go('profile');
 				}
 				
 			});

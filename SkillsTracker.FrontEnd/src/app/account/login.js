@@ -17,12 +17,12 @@
 					url: '/register',
 					templateUrl: 'app/account/views/register.html'
 				})
-				.state('account', {
-					url: '/account',
+				.state('profile', {
+					url: '/profile',
 					data: {
 						private: true
 					},
-					templateUrl: 'app/account/views/account.html'
+					templateUrl: 'app/account/views/profile.html'
 				}); 
 		}
 	]);

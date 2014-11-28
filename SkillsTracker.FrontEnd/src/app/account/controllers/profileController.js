@@ -1,9 +1,9 @@
 (function (app) {
 	'use strict';
 	
-	var AccountController = (function () {
+	var ProfileController = (function () {
 
-		function AccountController() {
+		function ProfileController() {
 			// Todo: should come from AccountService
 			this.userData = {
 				user: {
@@ -23,6 +23,14 @@
 					rating: 4
 				},
 				{
+					name: 'REST',
+					rating: 3
+				},
+				{
+					name: 'Web API',
+					rating: 3
+				},
+				{
 					name: 'JavaScript',
 					rating: 4
 				},
@@ -33,10 +41,14 @@
 			];
 		}
 		
-		return AccountController;
+		ProfileController.prototype.updateSkill = function (skill, oldSkill) {
+			console.log('updating database for skill: ', skill, 'oldSkill: ', oldSkill); 
+		};
+		
+		return ProfileController;
 		
 	}());
 	
-	app.controller('AccountController', AccountController);
+	app.controller('ProfileController', ProfileController);
 	
 }(angular.module('app.account')));

@@ -53,12 +53,12 @@
 					url: '/register',
 					templateUrl: 'app/account/views/register.html'
 				})
-				.state('account', {
-					url: '/account',
+				.state('profile', {
+					url: '/profile',
 					data: {
 						private: true
 					},
-					templateUrl: 'app/account/views/account.html'
+					templateUrl: 'app/account/views/profile.html'
 				}); 
 		}
 	]);
@@ -69,48 +69,6 @@
 	
 	angular.module('app.common', []);
 }());
-(function (app) {
-	'use strict';
-	
-	var AccountController = (function () {
-
-		function AccountController() {
-			// Todo: should come from AccountService
-			this.userData = {
-				user: {
-					fullName: 'Dieter Goetelen',
-					title: 'Software Engineer .NET'
-				}
-			};
-			
-			// Todo; should come from SkillsService
-			this.skills = [
-				{
-					name: '.NET',
-					rating: 3
-				},
-				{
-					name: 'AngularJS',
-					rating: 4
-				},
-				{
-					name: 'JavaScript',
-					rating: 4
-				},
-				{
-					name: 'MongoDB',
-					rating: 3
-				}
-			];
-		}
-		
-		return AccountController;
-		
-	}());
-	
-	app.controller('AccountController', AccountController);
-	
-}(angular.module('app.account')));
 (function (app) {
 	'use strict';
 	
@@ -128,7 +86,7 @@
 			vm.accountService.login(vm.formData, function (err, user) {
 				
 				if (!err) {
-					vm.$state.go('account');
+					vm.$state.go('profile');
 				}
 				
 			});
@@ -148,6 +106,60 @@
 (function (app) {
 	'use strict';
 	
+	var ProfileController = (function () {
+
+		function ProfileController() {
+			// Todo: should come from AccountService
+			this.userData = {
+				user: {
+					fullName: 'Dieter Goetelen',
+					title: 'Software Engineer .NET'
+				}
+			};
+			
+			// Todo; should come from SkillsService
+			this.skills = [
+				{
+					name: '.NET',
+					rating: 3
+				},
+				{
+					name: 'AngularJS',
+					rating: 4
+				},
+				{
+					name: 'REST',
+					rating: 3
+				},
+				{
+					name: 'Web API',
+					rating: 3
+				},
+				{
+					name: 'JavaScript',
+					rating: 4
+				},
+				{
+					name: 'MongoDB',
+					rating: 3
+				}
+			];
+		}
+		
+		ProfileController.prototype.updateSkill = function (skill, oldSkill) {
+			console.log('updating database for skill: ', skill, 'oldSkill: ', oldSkill); 
+		};
+		
+		return ProfileController;
+		
+	}());
+	
+	app.controller('ProfileController', ProfileController);
+	
+}(angular.module('app.account')));
+(function (app) {
+	'use strict';
+	
 	var RegisterController = (function () {
 		
 		function RegisterController(AccountService, $state) {
@@ -162,7 +174,7 @@
 			vm.accountService.register(vm.formData, function (err, user) {
 				
 				if (!err) {
-					vm.$state.go('account');
+					vm.$state.go('profile');
 				}
 				
 			});
@@ -279,12 +291,8 @@
 				
 				ngModel.$parsers.unshift(function (value) {
 					if (scope.validates({'value': value}) == true) {
-						console.log(attributes.customValidator, '<-- true'); 
-						
 						ngModel.$setValidity(attributes.customValidator, true);
 					 } else {
-						 console.log(attributes.customValidator, '<-- false');
-						 
 						 ngModel.$setValidity(attributes.customValidator, false);
 					 }
 					
@@ -305,8 +313,33 @@
 		return {
 			restrict: 'E',
 			scope: {
-				skill: '='	
+				skill: '=',
+				onUpdate: '&'
 			},
+			controller: ['$scope', function ($scope) {
+				function setSkillHolder() {
+					$scope.skillHolder = angular.copy($scope.skill);
+				}
+				
+				$scope.over = function (index) {
+					$scope.skillHolder.rating = (index + 1);
+				};
+				
+				$scope.leave = function (index) {
+					$scope.skillHolder.rating = $scope.skill.rating;
+				};
+				
+				$scope.set = function (index) {
+					var copy = angular.copy($scope.skill);
+
+					$scope.skill.rating = (index + 1);
+					$scope.onUpdate({'skill': $scope.skill, 'oldSkill': copy});
+					
+					setSkillHolder();
+				};
+				
+				setSkillHolder();
+			}],
 			templateUrl: 'app/common/directives/templates/skillRatingTemplate.html'
 		};
 		

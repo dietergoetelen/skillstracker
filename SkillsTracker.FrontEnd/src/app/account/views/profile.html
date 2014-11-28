@@ -1,4 +1,4 @@
-<div ng-controller="AccountController as vm">
+<div ng-controller="ProfileController as vm">
 
 	<div class="row">
 		<div class="col-md-12">
@@ -12,7 +12,7 @@
 	<div class="row">
 		
 		<div class="col-md-6" ng-repeat="skill in vm.skills | orderBy:'-rating'">
-			<skill-rating skill="skill"></skill-rating>
+			<skill-rating skill="skill" on-update="vm.updateSkill(skill, oldSkill)"></skill-rating>
 		</div>
 		
 	</div>

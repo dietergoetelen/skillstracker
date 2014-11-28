@@ -20,7 +20,9 @@
 			vm.data.user = user;
 			vm.data.authenticated = true;
 			
-			cb(null, user);
+			if (cb) {
+				cb(null, user);
+			}
 			
 		};
 		
@@ -31,7 +33,9 @@
 			vm.data.user = user;
 			vm.data.authenticated = true;
 			
-			cb(null, user);
+			if (cb) {
+				cb(null, user);
+			}
 		};
 		
 		AccountService.$inject = ['$http'];

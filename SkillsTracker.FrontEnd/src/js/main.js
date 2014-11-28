@@ -116,7 +116,7 @@
 		RegisterController.prototype.register = function () {
 			var vm = this;
 			
-			vm.accountService.register(function (err, user) {
+			vm.accountService.register(vm.formData, function (err, user) {
 				
 				if (!err) {
 					vm.$state.go('account');
@@ -157,7 +157,9 @@
 			vm.data.user = user;
 			vm.data.authenticated = true;
 			
-			cb(null, user);
+			if (cb) {
+				cb(null, user);
+			}
 			
 		};
 		
@@ -168,7 +170,9 @@
 			vm.data.user = user;
 			vm.data.authenticated = true;
 			
-			cb(null, user);
+			if (cb) {
+				cb(null, user);
+			}
 		};
 		
 		AccountService.$inject = ['$http'];

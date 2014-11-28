@@ -12,7 +12,7 @@
 		RegisterController.prototype.register = function () {
 			var vm = this;
 			
-			vm.accountService.register(function (err, user) {
+			vm.accountService.register(vm.formData, function (err, user) {
 				
 				if (!err) {
 					vm.$state.go('account');

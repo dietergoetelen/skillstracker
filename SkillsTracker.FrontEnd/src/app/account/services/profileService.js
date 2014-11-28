@@ -12,7 +12,7 @@
 		ProfileService.prototype.getProjects = function (userId) {
 			var deferred = this._$q.defer();
 			
-			// Resolve data immediately, this will be replaced by $http in the future
+			// Simulate latency
 			this._$timeout(function () {
 				
 				deferred.resolve([

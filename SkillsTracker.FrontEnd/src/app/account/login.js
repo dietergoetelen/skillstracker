@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	
-	var app = account.module('app.account', [
+	var app = angular.module('app.account', [
 		'ui.router'
 	]);
 	

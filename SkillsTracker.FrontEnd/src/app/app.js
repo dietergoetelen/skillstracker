@@ -3,9 +3,18 @@
 	
 	
 	var app = angular.module('app', [
+		'app.account',
 		'ui.router'
 	]);
 	
+	
+	app.config([
+		'$urlRouterProvider', function ($urlRouterProvider) {
+			
+			$urlRouterProvider.otherwise('/login');
+			
+		}
+	]);
 	
 	app.run(
 		['$rootScope', function ($rootScope) {

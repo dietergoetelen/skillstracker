@@ -44,4 +44,20 @@ gulp.task('develop', ['libs'], function () {
 	gulp.watch(config.jsFiles, ['js']);
 	gulp.watch(config.less, ['less']);
 	
+	startExpress();
+	
 });
+
+function startExpress() {
+	var app = express();
+
+	app.use(express.static(__dirname + '/src'));
+	
+	app.get('/', function (req, res) {
+		res.sendFile('src/index.html', {root: __dirname});
+	});
+	
+	app.listen(5000, function () {
+		console.log('server running on port :5000');
+	});
+}

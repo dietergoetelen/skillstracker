@@ -99,19 +99,18 @@ namespace SkillsTracker.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                bool skillExists = (await _skillRepo.FirstOrDefaultAsync(s => s.Id == id)) != null;
+                var dbSkill = await _skillRepo.FirstOrDefaultAsync(s => s.Id == id);
 
-                if (!skillExists)
+                if (dbSkill == null)
                     return NotFound();
 
-                if (skill.Id != id)
-                    skill.Id = id;
+                dbSkill.Name = skill.Name;
 
-                _skillRepo.Update(skill);
+                _skillRepo.Update(dbSkill);
 
                 await _skillRepo.SaveChangesAsync();
 
-                return Ok(skill);
+                return Ok(dbSkill);
             }
             catch (Exception)
             {

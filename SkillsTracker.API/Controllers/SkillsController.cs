@@ -11,6 +11,7 @@ using System.Web.Http;
 namespace SkillsTracker.API.Controllers
 {
     [RoutePrefix("api/skills")]
+    [Authorize]
     public class SkillsController : ApiController
     {
         private IBaseRepository<Skill> _skillRepo;

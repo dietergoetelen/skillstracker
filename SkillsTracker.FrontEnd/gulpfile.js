@@ -6,11 +6,16 @@ var gulp = require('gulp'),
 	ngAnnotate = require('gulp-ng-annotate'),
 	express = require('express');
 
+var bases = {
+	dist: 'dist',
+	src: 'src'
+};
 
 var config = {
-	jsFiles: ['src/app/*.js','src/app/*/*.js', 'src/app/*/*/*.js'],
-	libs: ['src/js/angular.js', 'src/js/ui-router.js'],
-	less: ['less/*.less', 'less/*/*.less']
+	jsFiles: [bases.src +'/app/*.js',bases.src +'/app/*/*.js', bases.src +'/app/*/*/*.js'],
+	libs: [bases.src +'/js/angular.js', bases.src +'/js/ui-router.js'],
+	less: [bases.src + '/less/*.less', bases.src + '/less/*/*.less'],
+	html: ['**/*.html']
 };
 
 gulp.task('js', function () {
@@ -18,16 +23,21 @@ gulp.task('js', function () {
 	gulp.src(config.jsFiles)
 		.pipe(concat('main.js'))
 		.pipe(ngAnnotate())
-		.pipe(gulp.dest('./src/js'));
+		.pipe(gulp.dest('./dist/js'));
 	
 });
 
 gulp.task('less', function () {
 	
-	gulp.src('less/*.less')
+	gulp.src(bases.src +'/less/*.less')
 		.pipe(less())
-		.pipe(gulp.dest('./src/css'));
+		.pipe(gulp.dest('./' + bases.dist + '/css'));
 	
+});
+
+gulp.task('copy', function () {
+	gulp.src(config.html, { cwd: bases.src })
+		.pipe(gulp.dest(bases.dist));
 });
 
 gulp.task('libs', function () {
@@ -35,11 +45,11 @@ gulp.task('libs', function () {
 	gulp.src(config.libs)
 		.pipe(concat('libs.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./src/js'));
+		.pipe(gulp.dest('./' + bases.dist + '/js'));
 	
 });
 
-gulp.task('develop', ['libs'], function () {
+gulp.task('develop', ['libs', 'copy', 'less', 'js'], function () {
 	
 	gulp.watch(config.jsFiles, ['js']);
 	gulp.watch(config.less, ['less']);
@@ -54,7 +64,7 @@ function startExpress() {
 	app.use(express.static(__dirname + '/src'));
 	
 	app.get('/', function (req, res) {
-		res.sendFile('src/index.html', {root: __dirname});
+		res.sendFile('dist/index.html', {root: __dirname});
 	});
 	
 	app.listen(5000, function () {

@@ -17,14 +17,15 @@ namespace SkillsTracker.API
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
             builder.RegisterType<SkillsTrackerDbContext>().AsSelf().InstancePerRequest();
             builder.RegisterGeneric(typeof(BaseRepository<>)).AsImplementedInterfaces().InstancePerRequest();
 
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-
+            
             var container = builder.Build();
 
-            GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
     }
 }

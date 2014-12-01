@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using SkillsTracker.API.Identity;
 using SkillsTracker.API.Models;
+using SkillsTracker.DAL;
+using SkillsTracker.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,38 +16,70 @@ namespace SkillsTracker.API.Controllers
     [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private AuthRepository _authRepo = null;
+        private IBaseRepository<User> _userRepo;
+        private IBaseRepository<Profile> _profileRepo;
 
-        public AccountController()
+        public AccountController(IBaseRepository<User> userRepo, IBaseRepository<Profile> profileRepo)
         {
-            _repo = new AuthRepository();
+            _authRepo = new AuthRepository();
+            _userRepo = userRepo;
+            _profileRepo = profileRepo;
         }
 
         [AllowAnonymous]
         [Route("register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                IdentityResult result = await _authRepo.RegisterUser(userModel);
+
+                IHttpActionResult errorResult = GetErrorResult(result);
+
+                if (errorResult != null)
+                {
+                    return errorResult;
+                }
+
+                // create the User instance
+                var user = new User
+                {
+                    Email = userModel.Email,
+                    FirstName = userModel.Firstname,
+                    LastName = userModel.Lastname,
+                    EmployeeCode = userModel.EmployeeCode
+                };
+
+                var profile = new Profile
+                {
+                    User = user,
+                    Introduction = "Put your introduction here"
+                };
+
+                _userRepo.Add(user);
+                _profileRepo.Add(profile);
+
+                await _profileRepo.SaveChangesAsync();
+
+                return Ok();
             }
-
-            IdentityResult result = await _repo.RegisterUser(userModel);
-
-            IHttpActionResult errorResult = GetErrorResult(result);
-
-            if (errorResult != null)
+            catch (Exception)
             {
-                return errorResult;
-            }
-            return Ok();
+                return InternalServerError();
+            }            
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                _repo.Dispose();
+                _authRepo.Dispose();
             }
 
             base.Dispose(disposing);

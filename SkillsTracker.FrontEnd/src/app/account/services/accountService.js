@@ -14,6 +14,27 @@
 			};
 		}
 		
+		AccountService.prototype.setToken = function (token) {
+			localStorage.setItem('accToken', token);
+		};
+		
+		AccountService.prototype.getToken = function () {
+			return localStorage.getItem('accToken');
+		};
+		
+		AccountService.prototype.tryLogin = function () {
+			
+			var token = this.getToken();
+			
+			if (token) {
+				// Add token to $http
+				this._$http.defaults.headers.common["Authorization"] = "Bearer " + token;	
+			}
+			
+			return this._$http.post(this._BASEURL + 'api/users/me');
+			
+		}; 
+		
 		AccountService.prototype.login = function (user) {
 			var vm = this;
 			var deferred = vm._$q.defer();
@@ -33,14 +54,21 @@
 				},
 				data: user
 			}).success(function (token) {
-				vm.data.user.token = token;
-				vm.data.user = user;
-				vm.data.authenticated = true;
+				// Add token to local storage
+				vm.setToken(token);
 				
-				deferred.resolve(token);
-				
+				// Try to do a login
+				vm.tryLogin()
+					.success(function (userData) {
+						vm.data.user = userData;
+					
+						deferred.resolve(userData);
+					})
+					.error(function (err) {
+						deferred.reject(err);
+					});
 			}).error(function (err) {
-				deferred.rect(err);
+				deferred.reject(err);
 			});
 			
 			return deferred.promise;

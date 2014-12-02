@@ -9,13 +9,14 @@ namespace SkillsTracker.API.Providers
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
             context.Validated();
         }
 
         public override  async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
+            
             using (AuthRepository repo = new AuthRepository())
             {
                 IdentityUser user = await repo.FindUser(context.UserName, context.Password);
@@ -31,6 +32,22 @@ namespace SkillsTracker.API.Providers
 
                 context.Validated(id);
             }
+        }
+
+        public override Task MatchEndpoint(OAuthMatchEndpointContext context)
+        {
+            if (context.OwinContext.Request.Method == "OPTIONS" && context.IsTokenEndpoint)
+            {
+                context.OwinContext.Request.Headers.Add("Access-Control-Allow-Methods", new[] { "POST" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "accept", "authorization", "content-type" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+                context.OwinContext.Response.StatusCode = 200;
+                context.RequestCompleted();
+
+                return Task.FromResult<object>(null);
+            }
+
+            return base.MatchEndpoint(context);
         }
     }
 }

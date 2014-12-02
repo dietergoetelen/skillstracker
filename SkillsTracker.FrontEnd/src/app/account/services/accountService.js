@@ -20,7 +20,7 @@
 			
 			user.grant_type = "password";
 			
-			this._$http.post(this._BASEURL + 'token').then(
+			this._$http.post(this._BASEURL + 'token', user).then(
 				function (userData) {
 					vm.data.user = userData;
 					vm.data.authenticated = true;

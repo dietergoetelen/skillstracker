@@ -19,8 +19,8 @@ namespace SkillsTracker.API
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            builder.RegisterType<SkillsTrackerDbContext>().AsSelf().InstancePerRequest();
-            builder.RegisterGeneric(typeof(BaseRepository<>)).AsImplementedInterfaces().InstancePerRequest();
+            builder.RegisterType<SkillsTrackerDbContext>().AsSelf().InstancePerDependency();
+            builder.RegisterGeneric(typeof(BaseRepository<>)).AsImplementedInterfaces().InstancePerDependency();
 
             
             var container = builder.Build();

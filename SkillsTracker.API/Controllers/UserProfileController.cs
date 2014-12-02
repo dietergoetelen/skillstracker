@@ -37,25 +37,6 @@ namespace SkillsTracker.API.Controllers
             {
                 return InternalServerError();
             }
-        }
-
-        [HttpGet]
-        [Route("skills", Name="GetSkills")]
-        public async Task<IHttpActionResult> GetSkills(int userId)
-        {
-            try
-            {
-                var profile = await _profileRepo.FirstOrDefaultAsync(p => p.UserId == userId);
-
-                if (profile == null)
-                    return NotFound();
-
-                return Ok(profile.Skills);
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
-        }
+        }        
     }
 }

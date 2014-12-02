@@ -135,6 +135,7 @@
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UserSkillsController.cs" />
     <Compile Include="Identity\AuthContext.cs" />
     <Compile Include="Identity\AuthRepository.cs" />
     <Compile Include="Models\UserModel.cs" />

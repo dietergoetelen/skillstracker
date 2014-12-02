@@ -49,17 +49,12 @@ namespace SkillsTracker.API.Controllers
             {
                 var id = RequestContext.Principal as ClaimsPrincipal;
 
-                var userClaim = id.Claims.FirstOrDefault(c => c.Type == "sub");
+                var userClaim = id.Claims.FirstOrDefault(c => c.Type == "userId");
 
                 if (userClaim == null)
                     return NotFound();
 
-                var user = await _userRepo.FirstOrDefaultAsync(u => u.Email.Equals(userClaim.Value, StringComparison.OrdinalIgnoreCase));
-
-                if (user == null)
-                    return NotFound();
-
-                return Ok(user);
+                return await Get(int.Parse(userClaim.Value));
             }
             catch (Exception)
             {

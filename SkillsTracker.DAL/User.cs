@@ -18,5 +18,6 @@ namespace SkillsTracker.DAL
 
         [Required, StringLength(256)]
         public string FirstName { get; set; }
+
     }
 }

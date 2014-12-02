@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SkillsTracker.API
 {
@@ -10,8 +11,9 @@ namespace SkillsTracker.API
     {
         public static void Register(HttpConfiguration config)
         {
+            var cors = new EnableCorsAttribute("*", "*", "*");
             // Web API configuration and services
-
+            config.EnableCors(cors);
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -20,6 +22,8 @@ namespace SkillsTracker.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            
 
             var jsonFormatter = config.Formatters.JsonFormatter;
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

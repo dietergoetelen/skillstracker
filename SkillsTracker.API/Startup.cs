@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using SkillsTracker.API.Providers;
@@ -15,7 +16,9 @@ namespace SkillsTracker.API
             HttpConfiguration config = new HttpConfiguration();
             ConfigureOAuth(app);
             WebApiConfig.Register(config);
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            AutoFacConfig.Configure(config);
+            app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
 

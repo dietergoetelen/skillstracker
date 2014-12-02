@@ -28,23 +28,28 @@
 				if (toState.resolve) {
 					Spinner.loading = true;
 				}
+				
+				if (toState.data && toState.data.private && toState.data.private === true) {
+					
+					if (accountService.data.authenticated === false) {
+						accountService.tryLogin()
+							.success(function (user) {
+								console.log('User is authenticated', user);
+							})
+							.error(function (err) {
+								Spinner.loading = false;
+							
+								event.preventDefault();
+								$state.go('login');
+							});
+					}
+				}
 			});
 			
 			$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
 				// Check if state has resolve
 				if (toState.resolve) {
 					Spinner.loading = false;
-				}
-				
-				
-				if (toState.data && toState.data.private && toState.data.private === true) {
-					
-					if (accountService.data.authenticated === false) {
-						// Todo: implement tryLogin when there is a token in localstorage
-						// Todo: uncomment when token set
-						//event.preventDefault();
-						//$state.go('login');
-					}
 				}
 			});
 		}

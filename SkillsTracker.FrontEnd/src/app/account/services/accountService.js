@@ -3,8 +3,10 @@
 	
 	var AccountService = (function () {
 		
-		function AccountService($http) {
+		function AccountService($http, $q, BASEURL) {
 			this._$http = $http;
+			this._BASEURL = BASEURL;
+			this._$q = $q;
 			
 			this.data = {
 				user: {},
@@ -12,33 +14,39 @@
 			};
 		}
 		
-		AccountService.prototype.login = function (user, cb) {
+		AccountService.prototype.login = function (user) {
+			var vm = this;
+			var deferred = vm._$q.defer();
 			
+			user.grant_type = "password";
+			
+			this._$http.post(this._BASEURL + 'token').then(
+				function (userData) {
+					vm.data.user = userData;
+					vm.data.authenticated = true;
+					
+					console.log(userData);
+					
+					deferred.resolve(userData);
+				},
+				function (errorData) {
+					deferred.reject(errorData);
+				});
+			
+			return deferred.promise;
+		};
+		
+		AccountService.prototype.register = function (user) {
 			var vm = this;
 			
 			// Todo: do $http call
 			vm.data.user = user;
 			vm.data.authenticated = true;
 			
-			if (cb) {
-				cb(null, user);
-			}
-			
+			return this._$http.post(this._BASEURL + 'api/account/register', user);
 		};
 		
-		AccountService.prototype.register = function (user, cb) {
-			var vm = this;
-			
-			// Todo: do $http call
-			vm.data.user = user;
-			vm.data.authenticated = true;
-			
-			if (cb) {
-				cb(null, user);
-			}
-		};
-		
-		AccountService.$inject = ['$http'];
+		AccountService.$inject = ['$http', '$q', 'BASEURL'];
 		
 		return AccountService;
 		

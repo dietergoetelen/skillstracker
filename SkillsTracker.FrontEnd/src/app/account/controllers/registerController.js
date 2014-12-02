@@ -12,13 +12,13 @@
 		RegisterController.prototype.register = function () {
 			var vm = this;
 			
-			vm.accountService.register(vm.formData, function (err, user) {
-				
-				if (!err) {
-					vm.$state.go('profile');
-				}
-				
-			});
+			vm.accountService.register(vm.formData).then(
+				function (data) {
+					vm._$state.go('login');
+				},
+				function (err) {
+					// Todo: do something when error occurs
+				});
 			
 		};
 		

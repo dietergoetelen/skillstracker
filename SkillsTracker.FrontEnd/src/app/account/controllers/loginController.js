@@ -12,15 +12,13 @@
 		LoginController.prototype.login = function () {
 			var vm = this;
 			
-			vm.accountService.login(vm.formData, function (err, user) {
-				
-				if (!err) {
-					vm.$state.go('profile');
-				}
-				
-			});
-			
-			
+			vm.accountService.login(vm.formData).then(
+				function (userData) {
+					console.log(userData, '<-- success');
+				}, 
+				function(errorData) {
+					console.log(errorData, '<-- error');
+				});
 		};
 		
 		LoginController.$inject = ['AccountService', '$state'];

@@ -16,6 +16,8 @@
 		}
 	]);
 	
+	app.constant('BASEURL', 'http://localhost:25462/');
+	
 	app.value('Spinner', {
 		loading: false	
 	});

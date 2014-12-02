@@ -86,7 +86,7 @@
 					
 					<span ng-if="registerForm.passwordValid.$invalid && !registerForm.passwordValid.$error.passwordMatch" class="text-danger pull-right">*</span>
 					<span ng-if="registerForm.passwordValid.$error.passwordMatch" class="text-danger pull-right">Password does not match</span>
-					<input type="password" id="password" required name="passwordValid" class="form-control" ng-model="vm.formData.passwordValid"
+					<input type="password" id="password" required name="passwordValid" class="form-control" ng-model="vm.formData.repeatPassword"
 						   custom-validator="passwordMatch" validates="vm.validatePasswordMatch(value)"/>
 				</div>
 			</div>

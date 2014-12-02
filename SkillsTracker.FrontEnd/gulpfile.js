@@ -58,7 +58,7 @@ gulp.task('copy:css', function () {
 		.pipe(gulp.dest(bases.dist));
 });
 
-gulp.task('copy', ['copy:html', 'copy:images', 'copy:fonts']);
+gulp.task('copy', ['copy:html', 'copy:images', 'copy:fonts', 'copy:css']);
 
 gulp.task('libs', function () {
 	

@@ -9,6 +9,8 @@ namespace SkillsTracker.API.Providers
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
             context.Validated();
         }
 
@@ -29,7 +31,6 @@ namespace SkillsTracker.API.Providers
 
         public override  async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-
             using (AuthRepository repo = new AuthRepository())
             {
                 IdentityUser user = await repo.FindUser(context.UserName, context.Password);

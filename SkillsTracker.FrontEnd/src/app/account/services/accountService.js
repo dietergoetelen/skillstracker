@@ -51,6 +51,7 @@
 						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
 					}
 					return str.join("&");
+
 				},
 				data: user
 			}).success(function (token) {

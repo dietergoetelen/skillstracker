@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -33,6 +34,32 @@ namespace SkillsTracker.API.Controllers
                     return BadRequest();
 
                 return Ok(allUsers);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("me", Name="CurrentUser")]
+        public async Task<IHttpActionResult> GetCurrentUser()
+        {
+            try
+            {
+                var id = RequestContext.Principal as ClaimsPrincipal;
+
+                var userClaim = id.Claims.FirstOrDefault(c => c.Type == "sub");
+
+                if (userClaim == null)
+                    return NotFound();
+
+                var user = await _userRepo.FirstOrDefaultAsync(u => u.Email.Equals(userClaim.Value, StringComparison.OrdinalIgnoreCase));
+
+                if (user == null)
+                    return NotFound();
+
+                return Ok(user);
             }
             catch (Exception)
             {

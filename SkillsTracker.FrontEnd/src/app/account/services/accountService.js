@@ -31,7 +31,7 @@
 				this._$http.defaults.headers.common["Authorization"] = "Bearer " + token;	
 			}
 			
-			return this._$http.post(this._BASEURL + 'api/users/me');
+			return this._$http.get(this._BASEURL + 'api/users/me');
 			
 		}; 
 		
@@ -56,7 +56,7 @@
 				data: user
 			}).success(function (token) {
 				// Add token to local storage
-				vm.setToken(token);
+				vm.setToken(token.access_token);
 				
 				// Try to do a login
 				vm.tryLogin()

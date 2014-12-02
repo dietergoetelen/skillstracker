@@ -7,6 +7,7 @@
 			this.formData = {};
 			this.accountService = AccountService;
 			this.$state = $state;
+			this.error = '';
 		}
 		
 		LoginController.prototype.login = function () {
@@ -14,10 +15,11 @@
 			
 			vm.accountService.login(vm.formData).then(
 				function (userData) {
-					console.log(userData, '<-- success');
+					vm.$state.go('profile');
 				}, 
 				function(errorData) {
-					console.log(errorData, '<-- error');
+					// Todo: handle error
+					vm.error = errorData && errorData.error_description || 'Woops: something bad has happened';
 				});
 		};
 		

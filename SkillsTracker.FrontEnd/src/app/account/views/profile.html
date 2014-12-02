@@ -6,11 +6,33 @@
 			<div class="page-title">
 				<h2 ng-bind="vm.userData.user.fullName"></h2>
 				<span class="badge alert-success" ng-bind="vm.userData.user.title"></span>
+				
+				<button ng-click="vm.editMode = !vm.editMode" class="btn btn-primary pull-right">{{ vm.editMode ? 'View mode' : 'Edit mode' }}</button>
+				
 			</div>	
 		</div>
 	</div>
-	
-	
+
+	<div class="row" ng-if="vm.editMode">
+		<div class="col-md-12">
+			<div class="bs-callout bs-callout-info">
+			  	<h4>Add skill</h4>
+				<form name="addSkillForm">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="name">Name</label>
+								<input required type="text" class="form-control" id="name" name="name" ng-model="vm.skillData.name">
+							</div>
+							<div class="form-group">
+								<button ng-disabled="addSkillForm.$invalid" ng-click="vm.addSkill(vm.skillData)" class="btn btn-success">Add</button>
+							</div>	
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	
 	<!-- skills -->
 	<div class="row">
@@ -18,6 +40,87 @@
 			<skill-rating skill="skill" on-delete="vm.deleteSkill(skill)" on-update="vm.updateSkill(skill, oldSkill)"></skill-rating>
 		</div>
 	</div>
+	
+	<div class="row" ng-if="vm.editMode">
+		<div class="col-md-12">
+			<div class="bs-callout bs-callout-info">
+				<h4>Add project</h4>
+				
+				<form name="addProjectForm">
+					<div class="row">
+						<div class="col-md-4">
+							
+							<div class="form-group">
+								<label for="title">Title</label>
+								<input required type="text" class="form-control" id="title" name="title" ng-model="vm.projectData.title">
+							</div>
+							
+							<div class="form-group">
+								<label for="function">Function</label>
+								<input required type="text" class="form-control" id="function" name="function" ng-model="vm.projectData.function">
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="projectDescription">Project description (accepts markdown)</label>
+								<textarea required 
+										  name="projectDescription" 
+										  rows="7" 
+										  id="projectDescription" 
+										  class="form-control" 
+										  ng-model="vm.projectData.description"></textarea>
+							</div>
+						</div>
+						
+						<div class="col-md-6">
+							
+							<div ng-bind-html="vm.projectData.description | showdown | unsafe"></div>
+							
+						</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6">
+							
+							
+							
+							<div class="form-group">
+								<label for="myContribution">My contribution (accepts markdown)</label>
+								<textarea required 
+										  name="myContribution" 
+										  rows="7" id="myContribution" 
+										  class="form-control" 
+										  ng-model="vm.projectData.contribution"></textarea>
+							</div>
+							
+						</div>
+						
+						<div class="col-md-6">
+							<div ng-bind-html="vm.projectData.contribution | showdown | unsafe"></div>
+						</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<button ng-disabled="addProjectForm.$invalid" ng-click="vm.addSkill(vm.skillData)" class="btn btn-success">Add</button>
+							</div>
+						</div>
+					</div>
+					
+					
+				</form>
+				
+			</div>
+		</div>
+	</div>
+	
 	
 	<div class="alert alert-info" ng-if="vm.filterPredicate.length > 0">
 		Clear filter <a ng-click="vm.removeFilter($index)" ng-repeat="filter in vm.filterPredicate"><span class="badge alert-success">{{ filter }}</span> </a>

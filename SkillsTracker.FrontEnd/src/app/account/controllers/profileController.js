@@ -15,9 +15,10 @@
 				}
 			};
 			
-			this.skills = skills;
-			this.projects = projects;
+			this.editMode = false;
 			
+			this.skills = skills.data;
+			this.projects = projects;
 		}
 		
 		ProfileController.prototype.setFilter = function (tag) {
@@ -34,6 +35,18 @@
 		
 		ProfileController.prototype.updateSkill = function (skill, oldSkill) {
 			console.log('Todo: updating database for skill: ', skill, 'oldSkill: ', oldSkill); 
+		};
+		
+		ProfileController.prototype.addSkill = function (skill) {
+			
+			this.skills.push(
+				{
+					id: 0,
+					name: skill.name,
+					rating: 1
+				}
+			);
+			
 		};
 		  
 		ProfileController.prototype.deleteSkill = function (skill) {

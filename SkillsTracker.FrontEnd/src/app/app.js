@@ -33,10 +33,10 @@
 					
 					if (accountService.data.authenticated === false) {
 						accountService.tryLogin()
-							.success(function (user) {
+							.then(function (user) {
 								console.log('User is authenticated', user);
 							})
-							.error(function (err) {
+							.catch(function (err) {
 								Spinner.loading = false;
 							
 								event.preventDefault();

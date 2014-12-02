@@ -23,16 +23,28 @@
 		};
 		
 		AccountService.prototype.tryLogin = function () {
-			
+			var vm = this;
 			var token = this.getToken();
+			var deferred = vm._$q.defer();
 			
 			if (token) {
 				// Add token to $http
 				this._$http.defaults.headers.common["Authorization"] = "Bearer " + token;	
 			}
 			
-			return this._$http.get(this._BASEURL + 'api/users/me');
+			this._$http.get(this._BASEURL + 'api/users/me')
+				.success(function (userData) {
+					vm.data.user = userData;
+					vm.data.authenticated = true;
+					deferred.resolve(userData);
+				})
+				.error(function (err) {
+					vm.data.authenticated = false;
+				
+					deferred.reject(err);
+				});
 			
+			return deferred.promise;
 		}; 
 		
 		AccountService.prototype.login = function (user) {
@@ -60,12 +72,15 @@
 				
 				// Try to do a login
 				vm.tryLogin()
-					.success(function (userData) {
+					.then(function (userData) {
 						vm.data.user = userData;
+						vm.data.authenticated = true;
 					
 						deferred.resolve(userData);
 					})
-					.error(function (err) {
+					.catch(function (err) {
+						vm.data.authenticated = false;
+					
 						deferred.reject(err);
 					});
 			}).error(function (err) {

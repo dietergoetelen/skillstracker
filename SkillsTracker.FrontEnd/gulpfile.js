@@ -14,7 +14,10 @@ var bases = {
 
 var config = {
 	jsFiles: [bases.src +'/app/*.js',bases.src +'/app/*/*.js', bases.src +'/app/*/*/*.js'],
-	libs: [bases.src +'/js/angular.js', bases.src +'/js/ui-router.js'],
+	libs: [bases.src + '/js/showdown.js', 
+		   bases.src +'/js/angular.js', 
+		   bases.src + '/js/angular-sanitize.js',
+		   bases.src +'/js/ui-router.js'],
 	less: [bases.src + '/less/*.less', bases.src + '/less/*/*.less'],
 	html: '**/*.html',
 	images: '**/images/*.*',
@@ -69,7 +72,7 @@ gulp.task('libs', function () {
 	
 });
 
-gulp.task('develop', ['libs', 'copy', 'less', 'js'], function () {
+gulp.task('develop', ['libs', 'less', 'copy', 'js'], function () {
 	var server = livereload();
 	
 	gulp.watch(config.jsFiles, ['js']);

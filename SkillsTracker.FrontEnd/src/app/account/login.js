@@ -5,6 +5,10 @@
 		'ui.router'
 	]);
 	
+	app.config(['$httpProvider', function($httpProvider) {
+		$httpProvider.defaults.headers.common["Content-Type"] = "application/x-www-form-urlencoded";
+    }]);
+	
 	app.config([
 		'$stateProvider', function ($stateProvider) {
 		

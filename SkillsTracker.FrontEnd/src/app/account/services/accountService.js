@@ -20,28 +20,34 @@
 			
 			user.grant_type = "password";
 			
-			this._$http.post(this._BASEURL + 'token').then(
-				function (userData) {
-					vm.data.user = userData;
-					vm.data.authenticated = true;
-					
-					console.log(userData);
-					
-					deferred.resolve(userData);
+			this._$http({
+				method: 'POST',
+				url: this._BASEURL + 'token',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+				transformRequest: function(obj) {
+					var str = [];
+					for(var p in obj) {
+						str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+					}
+					return str.join("&");
 				},
-				function (errorData) {
-					deferred.reject(errorData);
-				});
+				data: user
+			}).success(function (token) {
+				vm.data.user.token = token;
+				vm.data.user = user;
+				vm.data.authenticated = true;
+				
+				deferred.resolve(token);
+				
+			}).error(function (err) {
+				deferred.rect(err);
+			});
 			
 			return deferred.promise;
 		};
 		
 		AccountService.prototype.register = function (user) {
 			var vm = this;
-			
-			// Todo: do $http call
-			vm.data.user = user;
-			vm.data.authenticated = true;
 			
 			return this._$http.post(this._BASEURL + 'api/account/register', user);
 		};

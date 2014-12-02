@@ -12,13 +12,9 @@ namespace SkillsTracker.API
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureOAuth(app);
-
             HttpConfiguration config = new HttpConfiguration();
+            ConfigureOAuth(app);
             WebApiConfig.Register(config);
-            AutoFacConfig.Configure(config);
-
-
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
         }

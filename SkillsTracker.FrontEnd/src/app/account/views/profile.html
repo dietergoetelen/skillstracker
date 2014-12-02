@@ -11,13 +11,18 @@
 	</div>
 	
 	
+	
 	<!-- skills -->
 	<div class="row">
-		<div class="col-md-6" ng-repeat="skill in vm.skills | orderBy:'-rating'">
+		<div class="col-md-6 col-sm-6" ng-repeat="skill in vm.skills | orderBy:'-rating'">
 			<skill-rating skill="skill" on-delete="vm.deleteSkill(skill)" on-update="vm.updateSkill(skill, oldSkill)"></skill-rating>
 		</div>
 	</div>
-
+	
+	<div class="alert alert-info" ng-if="vm.filterPredicate.length > 0">
+		Clear filter <a ng-click="vm.removeFilter($index)" ng-repeat="filter in vm.filterPredicate"><span class="badge alert-success">{{ filter }}</span> </a>
+	</div>
+	
 	<!-- projects -->
 	<project ng-repeat="project in vm.projects | projectfilter:vm.filterPredicate" 
 			 title="{{ project.title }}" 

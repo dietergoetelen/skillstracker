@@ -21,9 +21,17 @@
 		}
 		
 		ProfileController.prototype.setFilter = function (tag) {
-			this.filterPredicate = tag;
+			if (! angular.isArray(this.filterPredicate)) {
+				this.filterPredicate = [];
+			}
+			
+			this.filterPredicate.push(tag);
 		};
 		  
+		ProfileController.prototype.removeFilter = function (index) {
+			this.filterPredicate.splice(index, 1);
+		};
+		
 		ProfileController.prototype.updateSkill = function (skill, oldSkill) {
 			console.log('Todo: updating database for skill: ', skill, 'oldSkill: ', oldSkill); 
 		};

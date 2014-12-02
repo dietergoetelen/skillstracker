@@ -1,14 +1,12 @@
 (function () {
 	'use strict';
 	
-	
 	var app = angular.module('app', [
 		'app.common',
 		'app.account',
 		'app.search',
 		'ui.router'
 	]);
-	
 	
 	app.config([
 		'$urlRouterProvider', function ($urlRouterProvider) {

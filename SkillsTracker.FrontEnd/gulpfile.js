@@ -71,8 +71,10 @@ gulp.task('libs', function () {
 
 gulp.task('develop', ['libs', 'copy', 'less', 'js'], function () {
 	var server = livereload();
+	
 	gulp.watch(config.jsFiles, ['js']);
 	gulp.watch(config.less, ['less']);
+	gulp.watch(config.html, ['copy:html']);
 	
 	startExpress();
 	startLivereload();

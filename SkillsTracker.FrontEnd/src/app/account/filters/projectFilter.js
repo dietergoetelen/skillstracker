@@ -3,10 +3,15 @@
 	
 	app.filter('projectfilter', function () {
 		
+		function checkPredicate(tag, pred) {
+			return tag.toLowerCase().indexOf(pred.toLowerCase()) >= 0;
+		}
+		
 		return function (projects, predicate) {
 			var retVal = [], found;
 			
-			if (predicate && angular.isArray(projects)) {
+			// Nothing to filter
+			if (predicate && predicate.length !== 0 && angular.isArray(projects)) {
 				
 				angular.forEach(projects, function (project) {
 					
@@ -15,7 +20,15 @@
 					if (project.tags && angular.isArray(project.tags)) {
 						
 						angular.forEach(project.tags, function (tag) {
-							if (tag.toLowerCase().indexOf(predicate.toLowerCase()) >= 0) {
+							if (angular.isArray(predicate)) {
+								
+								angular.forEach(predicate, function (pred) {
+									if (checkPredicate(tag, pred)) {
+										found = true;	
+									}
+								});
+								
+							} else if (checkPredicate(tag, predicate)) {
 								found = true;
 							}
 						});

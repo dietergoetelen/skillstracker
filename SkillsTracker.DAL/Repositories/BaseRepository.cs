@@ -14,29 +14,33 @@ namespace SkillsTracker.DAL.Repositories
             _context = context;
         }
 
-        public IQueryable<T> Get()
+        public  Task<IQueryable<T>> Get()
         {
-            return _context.Set<T>();
+            return Task.FromResult<IQueryable<T>>(_context.Set<T>());
         }
 
-        public IQueryable<T> Get(Expression<Func<T, bool>> whereExpression)
+        public async Task<IQueryable<T>> Get(Expression<Func<T, bool>> whereExpression)
         {
-            return Get().Where(whereExpression);
+            var allItems = await Get();
+            return allItems.Where(whereExpression);
         }
 
-        public IQueryable<TSelect> Get<TSelect>(Expression<Func<T, TSelect>> selectExpression)
+        public async Task<IQueryable<TSelect>> Get<TSelect>(Expression<Func<T, TSelect>> selectExpression)
         {
-            return Get().Select(selectExpression);
+            var allItems = await Get();
+            return allItems.Select(selectExpression);
         }
 
-        public IQueryable<TSelect> Get<TSelect>(Expression<Func<T, bool>> whereExpression, Expression<Func<T, TSelect>> selectExpression)
+        public async Task<IQueryable<TSelect>> Get<TSelect>(Expression<Func<T, bool>> whereExpression, Expression<Func<T, TSelect>> selectExpression)
         {
-            return Get().Where(whereExpression).Select(selectExpression);
+            var allItems = await Get();
+            return allItems.Where(whereExpression).Select(selectExpression);
         }
 
-        public Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> whereExpression)
+        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> whereExpression)
         {
-            return Get().FirstOrDefaultAsync(whereExpression);
+            var allItems = await Get();
+            return await allItems.FirstOrDefaultAsync(whereExpression);
         }
 
         public T Add(T entity)

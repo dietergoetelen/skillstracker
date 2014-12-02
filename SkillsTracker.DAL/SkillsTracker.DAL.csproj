@@ -54,6 +54,14 @@
     <Compile Include="Migrations\201411281017395_InitialCreate.Designer.cs">
       <DependentUpon>201411281017395_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412010910466_skillrequireent.cs" />
+    <Compile Include="Migrations\201412010910466_skillrequireent.Designer.cs">
+      <DependentUpon>201412010910466_skillrequireent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412011424124_trying to fix put.cs" />
+    <Compile Include="Migrations\201412011424124_trying to fix put.Designer.cs">
+      <DependentUpon>201412011424124_trying to fix put.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +79,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201411281017395_InitialCreate.resx">
       <DependentUpon>201411281017395_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412010910466_skillrequireent.resx">
+      <DependentUpon>201412010910466_skillrequireent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412011424124_trying to fix put.resx">
+      <DependentUpon>201412011424124_trying to fix put.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

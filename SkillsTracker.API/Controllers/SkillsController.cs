@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace SkillsTracker.API.Controllers
 {
@@ -27,7 +28,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var allSkills = await _skillRepo.Get();
+                var allSkills = await _skillRepo.Get().ToListAsync();
 
                 if (allSkills != null)
                 {

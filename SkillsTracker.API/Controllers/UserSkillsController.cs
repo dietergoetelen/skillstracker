@@ -1,6 +1,7 @@
 ﻿using SkillsTracker.API.Models;
 using SkillsTracker.DAL;
 using SkillsTracker.DAL.Repositories;
+using SkillsTracker.API.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace SkillsTracker.API.Controllers
 {
@@ -31,16 +33,16 @@ namespace SkillsTracker.API.Controllers
 
         [HttpGet]
         [Route("me/skills", Name="GetCurrentUserSkills")]
-        public async Task<IHttpActionResult> GetSkills()
+        public async Task<IHttpActionResult> GetUserSkills()
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
 
-                return await GetSkills(int.Parse(userClaim.Value));
+                return await GetUserSkills(int.Parse(userClaim.Value));
             }
             catch (Exception)
             {
@@ -50,18 +52,70 @@ namespace SkillsTracker.API.Controllers
         
         [HttpGet]
         [Route("{userId}/skills", Name = "GetUserSkills")]
-        public async Task<IHttpActionResult> GetSkills(int userId)
+        public async Task<IHttpActionResult> GetUserSkills(int userId)
         {
             try
             {
-                var profile = await _profileRepo.FirstOrDefaultAsync(p => p.UserId == userId);
+                var profile = await _profileRepo.FirstOrDefaultAsync(p => p.UserId == userId, include: "Skills.skill");
                 
+                if (profile == null )
+                    return NotFound();
+                
+                return Ok(profile.Skills.Select(s => new UserSkillViewModel{
+                    UserId = userId,
+                    SkillId = s.SkillId,
+                    Name = s.Skill.Name,
+                    Rating = s.Rating
+                }));
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("me/skills/{skillId}", Name="GetCurrentUserSkill")]
+        public async Task<IHttpActionResult> GetCurrentUserSkill(int skillId)
+        {
+            try
+            {
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
+
+                if (userClaim == null)
+                    return NotFound();
+
+                return await GetUserSkill(int.Parse(userClaim.Value), skillId);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("{userId}/skills/{skillId}", Name="GetUserSkill")]
+        public async Task<IHttpActionResult> GetUserSkill(int userId, int skillId)
+        {
+            try
+            {
+                var profile = await _profileRepo.FirstOrDefaultAsync(p => p.UserId == userId, include: "Skills.Skill");
+
                 if (profile == null)
                     return NotFound();
 
-                var skills = await _userSkillRepo.Get(s => s.ProfileId == profile.Id);
+                var skill = profile.Skills.FirstOrDefault(s => s.SkillId == skillId);
 
-                return Ok(skills);
+                if (skill == null)
+                    return NotFound();
+
+                return Ok(new UserSkillViewModel
+                {
+                    SkillId = skill.SkillId,
+                    UserId = userId,
+                    Rating = skill.Rating,
+                    Name = skill.Skill.Name
+                });
             }
             catch (Exception)
             {
@@ -75,12 +129,12 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var idClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
-                if (idClaim == null)
+                if (userClaim == null)
                     return NotFound();
 
-                return await PostSkills(int.Parse(idClaim.Value), model);
+                return await PostSkills(int.Parse(userClaim.Value), model);
             }
             catch (Exception)
             {
@@ -132,7 +186,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
@@ -156,9 +210,9 @@ namespace SkillsTracker.API.Controllers
                 if (profile == null)
                     return NotFound();
 
-                var skill = profile.Skills.FirstOrDefault(s => s.SkillId == skillId && s.ProfileId == profile.Id);
+                var skill = await _userSkillRepo.FirstOrDefaultAsync(s => s.ProfileId == profile.Id && s.SkillId == skillId);
 
-                if (skillId == null)
+                if (skill == null)
                     return NotFound();
 
                 _userSkillRepo.Remove(skill);
@@ -174,12 +228,12 @@ namespace SkillsTracker.API.Controllers
         }
 
         [HttpPut]
-        [Route("me/skills/skillId", Name="UpdateCurrentUserSKill")]
+        [Route("me/skills/{skillId}", Name="UpdateCurrentUserSKill")]
         public async Task<IHttpActionResult> UpdateUserSkill(int skillId, SkillModel model)
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
@@ -198,35 +252,32 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var profile = await _profileRepo.FirstOrDefaultAsync(p => p.UserId == userId);
+                var profile = await _profileRepo.FirstOrDefaultAsync(p => p.UserId == userId, include: "Skills.Skill");
 
                 if (profile == null)
                     return NotFound();
 
-                var skill = await _userSkillRepo.FirstOrDefaultAsync(s => s.SkillId == skillId && s.ProfileId == profile.Id);
+                var skill = profile.Skills.FirstOrDefault(s => s.SkillId == skillId);
 
                 if (skill == null)
                     return NotFound();
 
                 skill.Rating = model.Rating;
-
+                _userSkillRepo.Update(skill);
                 await _userSkillRepo.SaveChangesAsync();
 
-                return Ok(skill);
+                return Ok(new UserSkillViewModel
+                {
+                    SkillId = skill.SkillId,
+                    UserId = userId,
+                    Rating = skill.Rating,
+                    Name = skill.Skill.Name
+                });
             }
             catch (Exception)
             {
                 return InternalServerError();
             }
-        }
-
-        private Claim GetUserIdClaim()
-        {
-            var id = RequestContext.Principal as ClaimsPrincipal;
-
-            var userClaim = id.Claims.FirstOrDefault(c => c.Type == "userId");
-
-            return userClaim;
-        }
+        }        
     }
 }

@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace SkillsTracker.API.Controllers
 {
@@ -28,7 +29,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var allUsers = await _userRepo.Get();
+                var allUsers = await _userRepo.Get().ToListAsync();
 
                 if (allUsers == null)
                     return BadRequest();

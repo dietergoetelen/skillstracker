@@ -62,8 +62,13 @@
     <Compile Include="Migrations\201412011424124_trying to fix put.Designer.cs">
       <DependentUpon>201412011424124_trying to fix put.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412030751356_added projects.cs" />
+    <Compile Include="Migrations\201412030751356_added projects.Designer.cs">
+      <DependentUpon>201412030751356_added projects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Profile.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\IBaseRepository.cs" />
@@ -85,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412011424124_trying to fix put.resx">
       <DependentUpon>201412011424124_trying to fix put.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412030751356_added projects.resx">
+      <DependentUpon>201412030751356_added projects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,6 +18,7 @@ namespace SkillsTracker.DAL
         public string Introduction { get; set; }
 
         public virtual ICollection<UserSkill> Skills { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
 
         [Column(TypeName="text")]
         public string ProfileImage { get; set; }

@@ -14,33 +14,34 @@ namespace SkillsTracker.DAL.Repositories
             _context = context;
         }
 
-        public  Task<IQueryable<T>> Get()
+        public IQueryable<T> Get()
         {
-            return Task.FromResult<IQueryable<T>>(_context.Set<T>());
+            return _context.Set<T>();
         }
 
-        public async Task<IQueryable<T>> Get(Expression<Func<T, bool>> whereExpression)
+        public IQueryable<T> Get(Expression<Func<T, bool>> whereExpression)
         {
-            var allItems = await Get();
-            return allItems.Where(whereExpression);
+            return Get().Where(whereExpression);
         }
 
-        public async Task<IQueryable<TSelect>> Get<TSelect>(Expression<Func<T, TSelect>> selectExpression)
+        public IQueryable<TSelect> Get<TSelect>(Expression<Func<T, TSelect>> selectExpression)
         {
-            var allItems = await Get();
-            return allItems.Select(selectExpression);
+            return Get().Select(selectExpression);
         }
 
-        public async Task<IQueryable<TSelect>> Get<TSelect>(Expression<Func<T, bool>> whereExpression, Expression<Func<T, TSelect>> selectExpression)
+        public IQueryable<TSelect> Get<TSelect>(Expression<Func<T, bool>> whereExpression, Expression<Func<T, TSelect>> selectExpression)
         {
-            var allItems = await Get();
-            return allItems.Where(whereExpression).Select(selectExpression);
+            return Get().Where(whereExpression).Select(selectExpression);
         }
 
-        public async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> whereExpression)
+        public Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> whereExpression, string include=null)
         {
-            var allItems = await Get();
-            return await allItems.FirstOrDefaultAsync(whereExpression);
+            var items = Get();
+            if (!string.IsNullOrEmpty(include))
+            {
+                items = items.Include(include);
+            }
+            return items.FirstOrDefaultAsync(whereExpression);
         }
 
         public T Add(T entity)

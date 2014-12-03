@@ -132,10 +132,12 @@
     <Compile Include="App_Start\AutoFacConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserSkillsController.cs" />
+    <Compile Include="Extensions\ClaimsPrincipalExtensions.cs" />
     <Compile Include="Identity\AuthContext.cs" />
     <Compile Include="Identity\AuthRepository.cs" />
     <Compile Include="Models\SkillModel.cs" />

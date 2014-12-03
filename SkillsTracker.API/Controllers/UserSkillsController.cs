@@ -1,6 +1,7 @@
 ﻿using SkillsTracker.API.Models;
 using SkillsTracker.DAL;
 using SkillsTracker.DAL.Repositories;
+using SkillsTracker.API.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
@@ -79,7 +80,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
@@ -128,12 +129,12 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var idClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
-                if (idClaim == null)
+                if (userClaim == null)
                     return NotFound();
 
-                return await PostSkills(int.Parse(idClaim.Value), model);
+                return await PostSkills(int.Parse(userClaim.Value), model);
             }
             catch (Exception)
             {
@@ -185,7 +186,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
@@ -232,7 +233,7 @@ namespace SkillsTracker.API.Controllers
         {
             try
             {
-                var userClaim = GetUserIdClaim();
+                var userClaim = (RequestContext.Principal as ClaimsPrincipal).GetClaim("userId");
 
                 if (userClaim == null)
                     return NotFound();
@@ -277,15 +278,6 @@ namespace SkillsTracker.API.Controllers
             {
                 return InternalServerError();
             }
-        }
-
-        private Claim GetUserIdClaim()
-        {
-            var id = RequestContext.Principal as ClaimsPrincipal;
-
-            var userClaim = id.Claims.FirstOrDefault(c => c.Type == "userId");
-
-            return userClaim;
-        }
+        }        
     }
 }

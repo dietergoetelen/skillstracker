@@ -35,6 +35,8 @@ gulp.task('js', function () {
 
 gulp.task('less', function () {
 	
+	console.log('DOING LESS');
+	
 	gulp.src(bases.src +'/less/*.less')
 		.pipe(less())
 		.pipe(gulp.dest('./' + bases.dist + '/css'));
@@ -72,13 +74,13 @@ gulp.task('libs', function () {
 	
 });
 
-gulp.task('develop', ['libs', 'less', 'copy', 'js'], function () {
+gulp.task('develop', ['libs', 'copy', 'js', 'less'], function () {
 	var server = livereload();
 	
 	gulp.watch(config.jsFiles, ['js']);
-	gulp.watch(config.less, ['less']);
 	gulp.watch(config.html, ['copy:html']);
-	
+	gulp.watch(config.less, ['less']);
+
 	startExpress();
 	startLivereload();
 	

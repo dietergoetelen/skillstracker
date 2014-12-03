@@ -117,10 +117,19 @@
 					
 				</form>
 				
+				
+				
 			</div>
 		</div>
 	</div>
 	
+	
+	<md-editor md="vm.projectData.contribution">
+		<md-item type="bold" prepend="**" append="**" cursor="center"></md-item>	
+		<md-item type="italic" prepend="*" append="*" cursor="center"></md-item>
+		<md-item type="header" prepend="#" whitespace="false"></md-item>
+		<md-item type="list" prepend=" -" whitespace="true"></md-item>
+	</md-editor>
 	
 	<div class="alert alert-info" ng-if="vm.filterPredicate.length > 0">
 		Clear filter <a ng-click="vm.removeFilter($index)" ng-repeat="filter in vm.filterPredicate"><span class="badge alert-success">{{ filter }}</span> </a>
